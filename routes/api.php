@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\VideoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 require_once 'api/user.php';
+require_once 'api/user_settings.php';
+require_once 'api/license_agreement.php';
+
+Route::middleware('auth:sanctum')->get('/videos', [VideoController::class, 'index']);

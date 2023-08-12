@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Models\UserSettings;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -28,6 +29,15 @@ class CreateService
             'password' => $request->password
         ]);
 
+        $this->createUserSettings($user->id);
+
         return $user->createToken($request->phone)->plainTextToken;
+    }
+
+    private function createUserSettings($userId)
+    {
+        $userSettings = new UserSettings();
+        $userSettings->user_id = $userId;
+        $userSettings->save();
     }
 }
